@@ -4,9 +4,9 @@ import { motion } from "framer-motion";
 // Supabase Client
 import { createClient } from "@supabase/supabase-js";
 
-const SUPABASE_URL = process.env.SUPABASE_URL;
-const SUPABASE_KEY = process.env.SUPABASE_KEY;
-const supabase = createClient(SUPABASE_URL, SUPABASE_KEY);
+const supabaseUrl = import.meta.env.VITE_SUPABASE_URL;
+const supabaseAnonKey = import.meta.env.VITE_SUPABASE_KEY;
+const supabase = createClient(supabaseUrl, supabaseAnonKey);
 
 export default function ApplyPage() {
   const [formData, setFormData] = useState({
@@ -51,7 +51,7 @@ export default function ApplyPage() {
       if (error) throw error;
 
       // Step 2: Generate Public URL
-      const resumeUrl = `${SUPABASE_URL}/storage/v1/object/public/resumes/${fileName}`;
+      const resumeUrl = `${supabaseUrl}/storage/v1/object/public/resumes/${fileName}`;
 
       // Step 3: Insert Data into Supabase Table
       const formattedMessage = formData.message?.trim() || "N/A"; // Ensure it's always a string
